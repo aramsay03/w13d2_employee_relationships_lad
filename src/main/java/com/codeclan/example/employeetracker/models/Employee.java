@@ -1,9 +1,10 @@
 package com.codeclan.example.employeetracker.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
-@Table(name="employee")
+@Table(name="employees")
 public class Employee {
 
     @Id
@@ -11,16 +12,25 @@ public class Employee {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
 
-    @Column(name = "employeeNumber")
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "employee_number")
     private String employeeNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
-    public Employee(String name, String employeeNumber) {
-        this.name = name;
+
+    public Employee(String firstName, String lastName, String employeeNumber, Department department) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.employeeNumber = employeeNumber;
+        this.department = department;
     }
 
     public Employee(){
@@ -35,12 +45,20 @@ public class Employee {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmployeeNumber() {
@@ -49,6 +67,14 @@ public class Employee {
 
     public void setEmployeeNumber(String employeeNumber) {
         this.employeeNumber = employeeNumber;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
 }
